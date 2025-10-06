@@ -7,9 +7,11 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "user")
 public class UserEntity {
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_user", updatable = false, nullable = false)
+    @Column(name = "id_user")
+	
     private UUID idUser; // matches id_colaborador INT
     private String userName;
 	private String password;

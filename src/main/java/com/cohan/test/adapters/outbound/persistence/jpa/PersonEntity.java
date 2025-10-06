@@ -7,13 +7,18 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "person")
 public class PersonEntity {
+
 	@Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_persona", updatable = false, nullable = false)
+    @Column(name = "id_person")
+	
 	private UUID idPersona; // matches id_colaborador INT
 	private String name;
 	private String phone;
-	private String email_address;
+	
+	@Column(name = "email_address")	
+	private String email;
+	
 	public UUID getId_Person() {
 		return idPersona;
 	}
@@ -32,11 +37,11 @@ public class PersonEntity {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getEmail_address() {
-		return email_address;
+	public String getEmail() {
+		return email;
 	}
-	public void setEmail_address(String email_address) {
-		this.email_address = email_address;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
     // constructors, getters, setters

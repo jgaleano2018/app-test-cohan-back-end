@@ -7,9 +7,11 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "professor")
 public class ProfessorEntity {
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_professor", updatable = false, nullable = false)
+    @Column(name = "id_professor")	
+	
 	private UUID idProfessor; // matches id_colaborador INT
 	private Double salary;
 	private UUID idPerson;

@@ -1,14 +1,16 @@
 package com.cohan.test.application.service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cohan.test.adapters.outbound.persistence.jpa.PersonEntity;
 import com.cohan.test.domain.model.Person;
 import com.cohan.test.domain.port.in.PersonUseCases;
 import com.cohan.test.domain.port.out.PersonRepositoryPort;
-
-import java.util.List;
-import java.util.UUID;
 
 @Service
 public class PersonService implements PersonUseCases {
@@ -22,7 +24,16 @@ public class PersonService implements PersonUseCases {
     @Transactional
     public Person create(Person person){
         // add domain validations here
-        return repository.save(person);
+    	
+    	this.repository.save(person);
+    	
+    	Optional<PersonEntity> pfilter = this.repository.findByEmail(person.getEmail());
+    	
+    	Person presponse = person;
+    	
+    	presponse.setId_Person(pfilter.get().getId_Person());
+    	
+        return presponse;
     }
 
     @Override

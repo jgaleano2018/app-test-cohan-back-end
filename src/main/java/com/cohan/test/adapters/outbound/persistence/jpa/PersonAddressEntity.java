@@ -6,10 +6,10 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "personAddress")
-public class PersonAddressEntity {
+public class PersonAddressEntity {	
 	@Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_person_address", updatable = false, nullable = false)
+    @Column(name = "id_person_address")	
     private UUID id_person_address;
     private UUID id_person;
     private UUID id_address;

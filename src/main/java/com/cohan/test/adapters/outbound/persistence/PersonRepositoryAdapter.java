@@ -23,7 +23,7 @@ public class PersonRepositoryAdapter implements PersonRepositoryPort {
 
     private Person toDomain(PersonEntity e) { 
     	UUID newUUID = null;
-    	return new Person(newUUID, e.getName(), e.getPhone(), e.getEmail_address());
+    	return new Person(newUUID, e.getName(), e.getPhone(), e.getEmail());
     }
     
     private PersonEntity toEntity(Person c) { 
@@ -31,7 +31,7 @@ public class PersonRepositoryAdapter implements PersonRepositoryPort {
     	e.setId_Person(c.getId_Person());
     	e.setName(c.getEmail());
     	e.setPhone(c.getPhone());
-    	e.setEmail_address(c.getEmail());
+    	e.setEmail(c.getEmail());
 		return e;
 	}
 
@@ -52,6 +52,11 @@ public class PersonRepositoryAdapter implements PersonRepositoryPort {
 	@Override
 	public List<Person> findAll() {
 		return springRepo.findAll().stream().map(this::toDomain).collect(Collectors.toList());
+	}
+	
+	@Override
+	public Optional<PersonEntity> findByEmail(String email) {
+		return springRepo.findByEmail(email);//.map(this::toDomain);
 	}
 	
     
