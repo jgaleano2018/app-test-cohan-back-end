@@ -1,5 +1,6 @@
 package com.cohan.test.application.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,13 +26,23 @@ public class PersonService implements PersonUseCases {
     public Person create(Person person){
         // add domain validations here
     	
-    	this.repository.save(person);
+    	Person presponse = new Person();  
     	
-    	Optional<PersonEntity> pfilter = this.repository.findByEmail(person.getEmail());
-    	
-    	Person presponse = person;
-    	
-    	presponse.setId_Person(pfilter.get().getId_Person());
+    	try {
+    		
+    		this.repository.save(person);
+    		
+	    	Optional<PersonEntity> pfilter = this.repository.findByEmail(person.getEmail());
+	    	
+	    	presponse = person;    	
+	    	
+	    	pfilter = this.repository.findByEmail(person.getEmail());
+			presponse.setId_Person(pfilter.get().getId_Person());
+		
+	    } catch (Exception e) {
+	    	
+	        throw new IllegalArgumentException("Error: "+e.getMessage());
+	    }
     	
         return presponse;
     }
@@ -45,8 +56,13 @@ public class PersonService implements PersonUseCases {
     	existing.setName(person.getName());
     	existing.setPhone(person.getPhone());
     	existing.setEmail(person.getEmail());
+    	
+    	Person presponse = existing;    	
+    	presponse.setId_Person(id);
+    	
+    	this.repository.save(existing);
     	    	
-        return repository.save(existing);
+        return presponse;
     }
 
     @Override
@@ -56,7 +72,25 @@ public class PersonService implements PersonUseCases {
 
     @Override
     public List<Person> getAll(){
-        return repository.findAll();
+    	 List<Person> listPersonsInitial = this.repository.findAll();
+    	 
+    	 List<Person> listPersonsInitialNew = new ArrayList<>();
+    	 
+    	 for (Person itemPerson : listPersonsInitial) {
+    		 
+    		 Person personModel = new Person();    		 
+    		 personModel = itemPerson;
+    		 
+    		 System.out.print("Email VALUEEEE:: " + personModel.getEmail());
+    		 
+    		 Optional<PersonEntity> pfilter = this.repository.findByEmail(itemPerson.getEmail());
+    		 
+    		 personModel.setId_Person(pfilter.get().getId_Person());
+    					 
+    		 listPersonsInitialNew.add(personModel);
+         }
+    	 
+        return listPersonsInitialNew;
     }
 
     @Override

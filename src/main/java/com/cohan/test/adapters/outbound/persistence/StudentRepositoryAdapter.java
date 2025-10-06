@@ -53,6 +53,9 @@ public class StudentRepositoryAdapter implements StudentRepositoryPort {
 		return springRepo.findAll().stream().map(this::toDomain).collect(Collectors.toList());
 	}
 	
+	public Optional<StudentEntity> findByIdPerson(UUID idPerson) {
+		return springRepo.findByIdPerson(idPerson);
+	}
     
     @Override public void delete(UUID id){ springRepo.deleteById(id); }
 }

@@ -52,6 +52,10 @@ public class ProfessorRepositoryAdapter implements ProfessorRepositoryPort {
 		return springRepo.findAll().stream().map(this::toDomain).collect(Collectors.toList());
 	}
 	
+	public Optional<ProfessorEntity> findByIdPerson(UUID idPerson) {
+		return springRepo.findByIdPerson(idPerson);
+	}
+	
     
     @Override public void delete(UUID id){ springRepo.deleteById(id); }
 }
