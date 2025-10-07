@@ -49,10 +49,15 @@ public class AddressRepositoryAdapter implements AddressRepositoryPort {
 		return springRepo.findById(id).map(this::toDomain);
 	}
 	
-	
 	@Override
 	public List<Address> findAll() {
 		return springRepo.findAll().stream().map(this::toDomain).collect(Collectors.toList());
+	}
+	
+	@Override
+	public Optional<AddressEntity> findByStreetAndCityAndStateAndPostalCodeAndCountry(
+			Integer street, String city, String state, String postalCode, String country) {
+		return springRepo.findByStreetAndCityAndStateAndPostalCodeAndCountry(street, city, state, postalCode, country);
 	}
 	
     
