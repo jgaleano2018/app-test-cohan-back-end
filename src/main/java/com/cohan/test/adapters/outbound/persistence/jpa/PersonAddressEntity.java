@@ -10,26 +10,31 @@ public class PersonAddressEntity {
 	@Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_person_address")	
-    private UUID id_person_address;
-    private UUID id_person;
-    private UUID id_address;
+    private UUID idPersonAddress;
+	
+	@Column(name = "id_person")	
+    private UUID idPerson;
+	
+	@Column(name = "id_address")
+    private UUID idAddress;
+
     public UUID getId_person_address() {
-		return id_person_address;
+		return idPersonAddress;
 	}
 	public void setId_person_address(UUID id_person_address) {
-		this.id_person_address = id_person_address;
+		this.idPersonAddress = id_person_address;
 	}
 	public UUID getId_person() {
-		return id_person;
+		return idPerson;
 	}
 	public void setId_person(UUID id_person) {
-		this.id_person = id_person;
+		this.idPerson = id_person;
 	}
 	public UUID getId_address() {
-		return id_address;
+		return idAddress;
 	}
 	public void setId_address(UUID id_address) {
-		this.id_address = id_address;
+		this.idAddress = id_address;
 	}
     
 

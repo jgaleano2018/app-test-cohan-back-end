@@ -1,9 +1,13 @@
 package com.cohan.test.adapters.outbound.persistence.repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cohan.test.adapters.outbound.persistence.jpa.PersonAddressEntity;
 
-public interface SpringPersonAddressRepository extends JpaRepository<PersonAddressEntity, UUID> { }
+public interface SpringPersonAddressRepository extends JpaRepository<PersonAddressEntity, UUID> { 
+	
+	Optional<PersonAddressEntity> findByIdPerson(UUID idPerson); 
+}

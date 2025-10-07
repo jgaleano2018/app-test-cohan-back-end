@@ -3,11 +3,14 @@ package com.cohan.test.application.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cohan.test.adapters.outbound.persistence.jpa.PersonAddressEntity;
 import com.cohan.test.domain.model.PersonAddress;
 import com.cohan.test.domain.port.in.PersonAddressUseCases;
 import com.cohan.test.domain.port.out.PersonAddressRepositoryPort;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -44,7 +47,32 @@ public class PersonAddressService implements PersonAddressUseCases {
 
     @Override
     public List<PersonAddress> getAll(){
-        return repository.findAll();
+        
+       List<PersonAddress> listPersonAddressInitial = this.repository.findAll();
+   	 
+       List<PersonAddress> listPersonAddressInitialNew = new ArrayList<>();
+ 
+	   for (PersonAddress itemPerson : listPersonAddressInitial) {
+			 
+		 PersonAddress personModel = new PersonAddress();    		 
+		 personModel = itemPerson;
+		 
+		 System.out.print("IPERSON:: " + itemPerson.getIdPerson());
+		 System.out.print("idaddress:: " + itemPerson.getIdPersonAddress());
+		 
+		 
+		 //Optional<PersonAddressEntity> pfilter = this.repository.findByIdPersonAndIdAddress(itemPerson.getIdPerson(), itemPerson.getIdAddress());
+		 Optional<PersonAddressEntity> pfilter = this.repository.findByIdPerson(itemPerson.getIdPerson());
+		 
+		 personModel.setIdPerson(pfilter.get().getId_person());
+		 personModel.setIdAddress(pfilter.get().getId_address());
+		 personModel.setIdPersonAddress(pfilter.get().getId_person_address());
+		 
+					 
+		 listPersonAddressInitialNew.add(personModel);
+	   }
+   	 
+       return listPersonAddressInitialNew;
     }
 
     @Override

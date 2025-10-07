@@ -47,12 +47,15 @@ public class PersonAddressRepositoryAdapter implements PersonAddressRepositoryPo
 		return springRepo.findById(id).map(this::toDomain);
 	}
 	
-	
 	@Override
 	public List<PersonAddress> findAll() {
 		return springRepo.findAll().stream().map(this::toDomain).collect(Collectors.toList());
 	}
 	
+	@Override
+	public Optional<PersonAddressEntity> findByIdPerson(UUID idPerson) {
+		return springRepo.findByIdPerson(idPerson);
+	}
     
     @Override public void delete(UUID id){ springRepo.deleteById(id); }
 }
